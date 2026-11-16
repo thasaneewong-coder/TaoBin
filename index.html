@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123d32">
+<title>มิติไหนที่ใช่สำหรับคุณ? | TAO BIN</title>
+<style>
+:root{--green:#123d32;--mint:#baf2d4;--cream:#fff8e9;--orange:#ffb547;--ink:#17342d}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top right,#d5f6df 0,transparent 34%),var(--cream);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);min-height:100vh}
+main{max-width:520px;margin:0 auto;padding:20px 16px 36px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.brand{font-weight:900;letter-spacing:.08em;color:var(--green);font-size:14px}
+.pill{font-size:11px;font-weight:800;border:1px solid #c5d9ce;border-radius:99px;padding:7px 10px;background:#ffffff9c}
+.hero{background:var(--green);color:white;border-radius:28px;padding:27px 23px;position:relative;overflow:hidden;box-shadow:0 14px 35px #123d321c}
+.hero:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:#baf2d42b;right:-70px;top:-75px}
+.kicker{font-size:12px;letter-spacing:.12em;color:var(--mint);font-weight:800}
+h1{font-size:clamp(30px,8vw,43px);line-height:1.12;margin:10px 0 12px;position:relative;z-index:1}
+.hero p{color:#e5f5ed;line-height:1.65;font-size:14px;margin:0;max-width:330px;position:relative;z-index:1}
+.turtle{font-size:52px;position:absolute;right:15px;bottom:13px;z-index:1;filter:drop-shadow(0 4px 0 #0002)}
+.panel{background:#fff;border:1px solid #e8eee7;border-radius:24px;padding:22px;margin-top:17px;box-shadow:0 8px 25px #123d320a}
+.progressrow{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;color:#668076;margin-bottom:10px}
+.track{height:7px;background:#e9f0e9;border-radius:20px;overflow:hidden;margin-bottom:22px}
+.fill{height:100%;width:25%;background:#35a878;border-radius:20px;transition:width .25s}
+h2{font-size:22px;line-height:1.4;margin:0 0 7px}
+.sub{font-size:13px;color:#71827b;line-height:1.6;margin:0 0 18px}
+.answers{display:grid;gap:10px}
+.answer{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1.5px solid #e1eae3;border-radius:16px;padding:14px;background:#fff;color:var(--ink);font:inherit;font-size:14px;line-height:1.45;cursor:pointer;transition:.15s}
+.answer:active{transform:scale(.99)}
+.answer:hover{border-color:#55b88a;background:#f5fff8}
+.letter{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#e6f8ed;color:#17734d;font-weight:900}
+.answer.selected{border-color:#239461;background:#f0fff6;box-shadow:0 0 0 2px #23946118}
+.actions{display:flex;gap:10px;margin-top:19px}
+button.primary,button.secondary{border:0;border-radius:14px;padding:14px 16px;font-weight:850;font-size:14px;cursor:pointer}
+.primary{background:var(--green);color:white;flex:1}
+.primary:disabled{opacity:.35;cursor:not-allowed}
+.secondary{background:#edf4ee;color:var(--green)}
+.note{text-align:center;color:#7a8b82;font-size:11px;margin:16px 0 0}
+.result-icon{font-size:64px;line-height:1;margin:4px 0 16px}
+.result-tag{display:inline-block;background:#e5f9ed;color:#176c49;padding:7px 11px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.05em}
+.result-title{font-size:31px;line-height:1.2;margin:12px 0}
+.drink{background:#f4faf5;border:1px dashed #a4cdb2;border-radius:18px;padding:15px;margin-top:18px}
+.drink strong{display:block;margin-bottom:5px}
+.hidden{display:none!important}
+footer{text-align:center;font-size:10px;color:#91a097;margin:22px 0 0;letter-spacing:.1em}
+@media(max-width:380px){.panel{padding:18px}.hero{padding:23px 19px}.turtle{font-size:43px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><div class="brand">🐢 TAO BIN</div><div class="pill">DISCOVER YOUR DIMENSION</div></div>
+  <section class="hero">
+    <div class="kicker">YOUR DIMENSION · YOUR VIBE</div>
+    <h1>มิติไหนที่ใช่<br>สำหรับคุณ?</h1>
+    <p>ตอบ 4 คำถามสั้น ๆ แล้วให้เต่าบินพาคุณค้นพบมิติที่เข้ากับตัวเอง พร้อมเครื่องดื่มที่ใช่สำหรับคุณ</p>
+    <div class="turtle" aria-hidden="true">🐢</div>
+  </section>
+
+  <section class="panel" id="quiz">
+    <div class="progressrow"><span id="stepLabel">คำถาม 1 จาก 4</span><span id="percent">25%</span></div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <h2 id="question"></h2><p class="sub" id="sub">เลือกคำตอบที่ตรงกับคุณที่สุด</p>
+    <div class="answers" id="answers"></div>
+    <div class="actions"><button class="secondary" id="back" type="button">ย้อนกลับ</button><button class="primary" id="next" type="button" disabled>ข้อต่อไป →</button></div>
+    <p class="note">ไม่มีคำตอบถูกหรือผิด เลือกตามความรู้สึกของคุณได้เลย</p>
+  </section>
+
+  <section class="panel hidden" id="result" aria-live="polite">
+    <div class="result-icon" id="resultIcon">⚡</div>
+    <span class="result-tag">YOUR TAO BIN DIMENSION</span>
+    <h2 class="result-title" id="resultTitle"></h2>
+    <p id="resultDesc" style="line-height:1.75;font-size:14px;margin:0"></p>
+    <div class="drink"><strong>🥤 เครื่องดื่มที่เข้ากับมิติของคุณ</strong><span id="drinkName"></span><p id="drinkReason" style="font-size:12px;line-height:1.6;color:#60776a;margin:7px 0 0"></p></div>
+    <div class="actions"><button class="primary" id="restart" type="button">ลองค้นหามิติใหม่ ↻</button><button class="secondary" id="share" type="button">แชร์ผลลัพธ์</button></div>
+    <p class="note">เมนูแนะนำเป็นตัวอย่าง ความพร้อมจำหน่ายอาจแตกต่างกันตามตู้</p>
+  </section>
+  <footer>YOUR DIMENSION. YOUR VIBE. YOUR TAO BIN.</footer>
+</main>
+<script>
+const questions = [
+ {q:"วันนี้คุณอยากหลุดไปอยู่ในมิติแบบไหน?",a:[
+  ["สดใส เติมพลัง","energy"],["สงบ พักใจ","relax"],["สนุก แปลกใหม่","adventure"],["เข้มข้น มีสไตล์","bold"]]},
+ {q:"ถ้าเลือกเครื่องดื่มแทนอารมณ์ตอนนี้ คุณจะเลือกแบบไหน?",a:[
+  ["หวานสดชื่น","energy"],["นุ่มละมุน","relax"],["ซ่า ตื่นเต้น","adventure"],["เข้มข้นเต็มรส","bold"]]},
+ {q:"ช่วงเวลาไหนที่คุณอยากมีเครื่องดื่มอยู่ข้าง ๆ มากที่สุด?",a:[
+  ["ตอนเริ่มวัน","energy"],["ตอนพักเหนื่อย","relax"],["ตอนออกไปผจญภัย","adventure"],["ตอนทำงานหรืออ่านหนังสือ","bold"]]},
+ {q:"ถ้าเต่าบินจัดมิติให้คุณได้หนึ่งอย่าง คุณอยากได้อะไร?",a:[
+  ["พลังพร้อมลุย","energy"],["เวลาส่วนตัว","relax"],["ประสบการณ์ใหม่","adventure"],["รางวัลให้ตัวเอง","bold"]]}
+];
+const outcomes = {
+ energy:{icon:"⚡",title:"คุณคือชาวมิติเติมพลัง!",tag:"THE ENERGY SEEKER",desc:"คุณชอบเริ่มต้นวันด้วยพลังบวก มองหาอะไรสดชื่นมีสีสัน และพร้อมเปิดรับสิ่งใหม่ ๆ ให้ทุกวันมีแรงไปต่อในแบบของคุณ",drink:"แดงมะนาวโซดา",reason:"ความเปรี้ยวซ่าเป็นตัวเลือกที่เข้ากับมู้ดสดใสและกระปรี้กระเปร่าของคุณ"},
+ relax:{icon:"🌿",title:"คุณคือชาวมิติพักใจ",tag:"THE SLOW-LIFE SOUL",desc:"คุณรู้จักให้เวลากับตัวเอง ชอบความสบายใจและช่วงเวลาที่ไม่ต้องรีบ มิติที่ใช่ของคุณคือพื้นที่เล็ก ๆ ที่ทำให้ได้หายใจเต็มปอด",drink:"ชามะนาว",reason:"รสชาที่สดชื่น เหมาะกับช่วงเวลาพักและรีเซ็ตตัวเอง"},
+ adventure:{icon:"🪐",title:"คุณคือชาวมิติผจญภัย!",tag:"THE CURIOUS EXPLORER",desc:"คุณเบื่อง่ายในทางที่ดี ชอบลองอะไรใหม่ ๆ และพร้อมเปลี่ยนวันธรรมดาให้เป็นประสบการณ์ที่น่าจดจำ โลกของคุณมีพื้นที่ให้ความตื่นเต้นเสมอ",drink:"เมนูโซดาหรือเมนูรสชาติใหม่ที่มีในตู้",reason:"เลือกอะไรที่ให้ความรู้สึกซ่าและแตกต่าง เพื่อเติมความสนุกให้วันของคุณ"},
+ bold:{icon:"🌌",title:"คุณคือชาวมิติตัวตนชัด!",tag:"THE BOLD ORIGINAL",desc:"คุณมีสไตล์ของตัวเอง รู้ว่าชอบอะไร และเลือกสิ่งที่ตรงกับความรู้สึกมากกว่าตามใคร มิติของคุณคือการให้รางวัลตัวเองในแบบที่ใช่",drink:"กาแฟหรือเมนูรสเข้มที่มีในตู้",reason:"รสชาติชัด ๆ เหมาะกับคนที่รู้ใจตัวเองและชอบความมีเอกลักษณ์"}
+};
+let index=0, chosen=Array(questions.length).fill(null);
+const $=id=>document.getElementById(id);
+function render(){
+ const item=questions[index];
+ $("stepLabel").textContent=`คำถาม ${index+1} จาก ${questions.length}`;
+ $("percent").textContent=`${Math.round((index+1)/questions.length*100)}%`;
+ $("fill").style.width=`${(index+1)/questions.length*100}%`;
+ $("question").textContent=item.q;
+ $("answers").innerHTML="";
+ item.a.forEach(([label,key],i)=>{
+  const b=document.createElement("button"); b.type="button"; b.className="answer"+(chosen[index]===key?" selected":"");
+  b.innerHTML=`<span class="letter">${"ABCD"[i]}</span><span>${label}</span>`;
+  b.onclick=()=>{chosen[index]=key;renderAnswers();}; $("answers").appendChild(b);
+ });
+ $("back").disabled=index===0; $("back").style.opacity=index===0?".35":"1";
+ $("next").textContent=index===questions.length-1?"ดูมิติของฉัน ✨":"ข้อต่อไป →";
+ $("next").disabled=!chosen[index];
+}
+function renderAnswers(){
+ [...$("answers").children].forEach((b,i)=>b.classList.toggle("selected",questions[index].a[i][1]===chosen[index]));
+ $("next").disabled=!chosen[index];
+}
+$("back").onclick=()=>{if(index>0){index--;render();}};
+$("next").onclick=()=>{
+ if(!chosen[index])return;
+ if(index<questions.length-1){index++;render();}
+ else showResult();
+};
+function showResult(){
+ const tally={energy:0,relax:0,adventure:0,bold:0}; chosen.forEach(k=>tally[k]++);
+ const max=Math.max(...Object.values(tally));
+ const tied=Object.keys(tally).filter(k=>tally[k]===max);
+ // Resolve ties using the latest answer among tied dimensions.
+ const key=[...chosen].reverse().find(k=>tied.includes(k))||"energy";
+ const o=outcomes[key];
+ $("quiz").classList.add("hidden");$("result").classList.remove("hidden");
+ $("resultIcon").textContent=o.icon;$("resultTitle").textContent=o.title;
+ $("resultDesc").textContent=o.desc;$("drinkName").textContent=o.drink;
+ $("drinkReason").textContent=o.reason;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+$("restart").onclick=()=>{index=0;chosen=Array(questions.length).fill(null);$("result").classList.add("hidden");$("quiz").classList.remove("hidden");render();window.scrollTo({top:0,behavior:"smooth"});};
+$("share").onclick=async()=>{
+ const text=`${$("resultTitle").textContent}\n${$("resultDesc").textContent}\nเครื่องดื่มที่เข้ากับฉัน: ${$("drinkName").textContent}\nYOUR DIMENSION. YOUR VIBE. YOUR TAO BIN.`;
+ if(navigator.share){try{await navigator.share({title:"มิติของฉัน | TAO BIN",text})}catch(e){}}
+ else if(navigator.clipboard){try{await navigator.clipboard.writeText(text);$("share").textContent="คัดลอกแล้ว ✓";setTimeout(()=>$("share").textContent="แชร์ผลลัพธ์",1800)}catch(e){alert(text)}}
+ else alert(text);
+};
+render();
+</script>
+</body>
+</html>
